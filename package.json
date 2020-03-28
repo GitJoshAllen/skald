@@ -1,0 +1,12 @@
+{
+    "name": "daisy_mae",
+    "version": "0.0.1",
+    "description": "STALKS!",
+    "main": "bot.js",
+    "author": "Joshua",
+    "dependencies": {
+        "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+        "lowdb": "^1.0.0",
+        "winston": "^3.2.1"
+    }
+}

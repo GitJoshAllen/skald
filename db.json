@@ -1,0 +1,37 @@
+{
+  "neighbors": [
+    {
+      "id": "177806771786612737",
+      "userName": "[Josh][Allen]",
+      "port": "opened",
+      "purchase": 300,
+      "selling": 100,
+      "island": "eggington",
+      "dodoCode": "asd34",
+      "updated": "2/28/2020",
+      "hour": 0
+    },
+    {
+      "id": "1",
+      "userName": "Jimmy Dead",
+      "port": "opened",
+      "purchase": 25,
+      "selling": 180,
+      "island": "Peach",
+      "dodoCode": "pe83f",
+      "updated": "2/28/2020",
+      "hour": 0
+    },
+    {
+      "id": "2",
+      "userName": "Kello Pop",
+      "port": "opened",
+      "purchase": 25,
+      "selling": 180,
+      "island": "Peach",
+      "dodoCode": "pe83f",
+      "updated": "2/25/2020",
+      "hour": 0
+    }
+  ]
+}
