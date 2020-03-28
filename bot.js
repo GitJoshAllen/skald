@@ -42,7 +42,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     if (message.substring(0, 1) == '$') {
         var args = message.substring(1).split(' ');
         var cmd = args[0] ? args[0].toLowerCase() : 'nope';
-        var request = args[1] ? args[1].toLowerCase() : 'nope';
+        var request = args[1] ? args[1] : 'nope';
         var userExists = (db.get('neighbors').find({ id: userID }).value() !== undefined);
         var today = new Date();
         var weekend = false;
@@ -73,6 +73,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             break;
             case 'dodo':
             case 'code':
+            case 'dodocode':
                 Dodo.Code(weekend, request, Today, userExists, userID, user, db, bot, channelID);
             break;
             case 'nope':

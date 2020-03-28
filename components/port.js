@@ -5,7 +5,7 @@ const Status = (weekend, request, Today, userExists, userID, user, db, bot, chan
     if(request === "status" || request === "nope"){
         bot.sendMessage({
             to: channelID,
-            message: "Your port is " + db.get('neighbors').find({ id: userID }).value().port
+            message: "Your port is " + db.get('neighbors').find({ id: userID }).value().port + ' ' + (db.get('neighbors').find({ id: userID }).value().port === "closed" ? ":no_entry:" : ":airplane:")
         });
         return;
     }
@@ -26,14 +26,17 @@ const Status = (weekend, request, Today, userExists, userID, user, db, bot, chan
              .push({ id: userID, port: request})
              .write()
     }
+    var portSymbol;
     if(request === "closed"){
         request = "closing";
+        portSymbol = ":no_entry:";
     }else{
         request = "opening";
+        portSymbol = ":airplane:";
     }
     bot.sendMessage({
         to: channelID,
-        message: 'Your port is ' + request
+        message: 'Your port is ' + request + ' ' + portSymbol
     });
 }
 

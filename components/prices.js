@@ -41,11 +41,12 @@ const Today = (weekend, request, Today, userExists, userID, user, db, bot, chann
                 }
             });
             var topUser = db.get('neighbors').find({id: topUserID}).value();
+            var portState = topUser.port === "closed" ? ":no_entry:" : ":airplane";
             bot.sendMessage({
                 to: channelID,
                 message: 
-                'I\'m selling turnips for ' + topUser.selling + ' bells at ' + topUser.island + ' island! \n' +
-                topUser.userName + '\'s port is '+ topUser.port + '! Dodo code: ' + topUser.dodoCode 
+                'I\'m selling turnips for ' + topUser.selling + ' :bell: at ' + topUser.island + ' Island! :palm_tree" \n' +
+                topUser.userName + '\'s port is '+ topUser.port  + ' ' + portState + '! \nDodo code: ' + topUser.dodoCode 
             });
         }else{
             var topPrice = 0;
@@ -58,11 +59,12 @@ const Today = (weekend, request, Today, userExists, userID, user, db, bot, chann
                 }
             });
             var topUser = db.get('neighbors').find({id: topUserID}).value();
+            var portState = topUser.port === "closed" ? ":no_entry:" : ":airplane:";
             bot.sendMessage({
                 to: channelID,
                 message: 
-                'I\'m buying turnips for ' + topUser.purchase + ' bells at ' + topUser.island + ' island! \n' +
-                topUser.userName + '\'s port is '+ topUser.port + '! Dodo code: ' + topUser.dodoCode 
+                'I\'m buying turnips for ' + topUser.purchase + ' :bell: at ' + topUser.island + ' Island! :palm_tree: \n' +
+                topUser.userName + '\'s port is '+ topUser.port + ' ' + portState + '! \nDodo code: ' + topUser.dodoCode 
             });
         }
     }

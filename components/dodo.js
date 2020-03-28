@@ -3,7 +3,7 @@ const Code = (weekend, request, Today, userExists, userID, user, db, bot, channe
         if(userExists){
             db.get('neighbors')
             .find({ id: userID })
-            .assign({ dodeCode: request})
+            .assign({ dodoCode: request})
             .write()
 
             bot.sendMessage({
@@ -12,7 +12,7 @@ const Code = (weekend, request, Today, userExists, userID, user, db, bot, channe
             });
         }else{
             db.get('neighbors')
-            .push({ id: userID, port: "closed", userName: user, dodeCode: request})
+            .push({ id: userID, port: "closed", userName: user, dodoCode: request})
             .write()
 
             bot.sendMessage({
