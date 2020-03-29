@@ -19,7 +19,7 @@ const Name = (weekend, request, Today, userExists, userID, user, db, bot, channe
             bot.sendMessage({
                 to: channelID,
                 message: 
-                ':pig_nose" Welcome to the Turnip Trades :chart_with_upwards_trend:! I hope you have a wonderful time!'
+                ':pig_nose: Welcome to the Turnip Trades :chart_with_upwards_trend:! I hope you have a wonderful time!'
             });
         }
     }
