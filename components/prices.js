@@ -52,7 +52,6 @@ const Today = (weekend, request, Today, userExists, userID, user, db, bot, chann
             var topPrice = 0;
             var topUserID = 0;
             db.get('neighbors').value().map((n) => {
-                console.log("n: " + n);
                 if(n.purchase > topPrice && n.updated === day){
                     if(!(hour >= 12 && n.hour < 12)){//if you haven't updated since Noon
                         topUserID = n.id; topPrice = n.purchase
@@ -60,13 +59,22 @@ const Today = (weekend, request, Today, userExists, userID, user, db, bot, chann
                 }
             });
             var topUser = db.get('neighbors').find({id: topUserID}).value();
-            var portState = topUser.port === "closed" ? ":no_entry:" : ":airplane:";
-            bot.sendMessage({
-                to: channelID,
-                message: 
-                'I\'m buying turnips for ' + topUser.purchase + ' :bell: at ' + topUser.island + ' Island! :palm_tree: \n' +
-                topUser.userName + '\'s port is '+ topUser.port + ' ' + portState + '! \nDodo code: ' + topUser.dodoCode 
-            });
+            if(topUser === undefined){
+                bot.sendMessage({
+                    to: channelID,
+                    message: 
+                    'I\'m sorry hun, no stock prices have been listed today. \n' +
+                    'Please list yours like: $price 45'
+                });
+            }else{
+                var portState = topUser.port === "closed" ? ":no_entry:" : ":airplane:";
+                bot.sendMessage({
+                    to: channelID,
+                    message: 
+                    'I\'m buying turnips for ' + topUser.purchase + ' :bell: at ' + topUser.island + ' Island! :palm_tree: \n' +
+                    topUser.userName + '\'s port is '+ topUser.port + ' ' + portState + '! \nDodo code: ' + topUser.dodoCode 
+                });
+            }
         }
     }
 }
