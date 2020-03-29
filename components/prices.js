@@ -60,6 +60,14 @@ const Today = (weekend, request, Today, userExists, userID, user, db, bot, chann
         }else{
             var topPrice = 0;
             var topUserID = 0;
+            if(Today.GetHours() < 8 || Today.GetHours() > 21){
+                bot.sendMessage({
+                    to: channelID,
+                    message: 
+                    'Please forgive me! The Stalk Market is closed for today'
+                });
+                return;
+            }
             db.get('neighbors').value().map((n) => {
                 if(n.purchase > topPrice && n.updated === day){
                     if(!(hour >= 12 && n.hour < 12)){//if you haven't updated since Noon
