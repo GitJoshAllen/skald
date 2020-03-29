@@ -60,6 +60,7 @@ const Today = (weekend, request, Today, userExists, userID, user, db, bot, chann
         }else{
             var topPrice = 0;
             var topUserID = 0;
+            console.log("TIME!: " + Today.GetHours());
             if(Today.GetHours() < 8 || Today.GetHours() > 21){
                 bot.sendMessage({
                     to: channelID,
