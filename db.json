@@ -1,0 +1,22 @@
+{
+  "neighbors": [
+    {
+      "id": "177806771786612737",
+      "port": "opened",
+      "userName": "[Josh][Allen]",
+      "selling": 25,
+      "updated": "3/29/2020",
+      "island": "Welp",
+      "dodoCode": "dfgr98W"
+    },
+    {
+      "id": "121805179069661184",
+      "port": "opened",
+      "userName": "Stan Thuman",
+      "selling": 50,
+      "updated": "3/29/2020",
+      "dodoCode": "",
+      "island": ""
+    }
+  ]
+}

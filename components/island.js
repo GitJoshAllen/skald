@@ -1,5 +1,5 @@
-const Name = (weekend, request, Today, userExists, userID, user, db, bot, channelID) => {
-    if(request !== "nope"){            
+const Name = (weekend, request, userExists, userID, user, db, bot, channelID) => {
+    if(request) {            
         if(userExists){
             db.get('neighbors')
             .find({ id: userID })
@@ -22,6 +22,11 @@ const Name = (weekend, request, Today, userExists, userID, user, db, bot, channe
                 ':pig_nose: Welcome to the Turnip Trades :chart_with_upwards_trend:! I hope you have a wonderful time!'
             });
         }
+    } else {
+        bot.sendMessage({
+            to: channelID,
+            message: 'No island name was entered. Please try again.'
+        });
     }
 }
 

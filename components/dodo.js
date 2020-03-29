@@ -1,6 +1,6 @@
-const Code = (weekend, request, Today, userExists, userID, user, db, bot, channelID) => {
-    if(request !== "nope"){            
-        if(userExists){
+const Code = (weekend, request, userExists, userID, user, db, bot, channelID) => {
+    if(request) {            
+        if(userExists) {
             db.get('neighbors')
             .find({ id: userID })
             .assign({ dodoCode: request})
@@ -10,7 +10,7 @@ const Code = (weekend, request, Today, userExists, userID, user, db, bot, channe
                 to: channelID,
                 message: 'Your Dodo code has been updated!'
             });
-        }else{
+        } else {
             db.get('neighbors')
             .push({ id: userID, port: "closed", userName: user, dodoCode: request})
             .write()
@@ -21,6 +21,11 @@ const Code = (weekend, request, Today, userExists, userID, user, db, bot, channe
                 'your Dodo code has been added!'
             });
         }
+    } else {
+        bot.sendMessage({
+            to: channelID,
+            message: 'No Dodo code was entered. Please try again.'
+        });
     }
 }
 

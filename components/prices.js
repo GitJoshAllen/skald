@@ -1,6 +1,8 @@
-const Today = (weekend, request, Today, userExists, userID, user, db, bot, channelID) => {
+const DateHelper = require('../utilities/DateHelper');
+
+const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) => {
     if(!isNaN(parseInt(request))){
-        if(weekend){
+        if(isSunday){
             if(userExists){
                 db.get('neighbors')
                 .find({ id: userID })
@@ -11,7 +13,7 @@ const Today = (weekend, request, Today, userExists, userID, user, db, bot, chann
                 .push({ id: userID, port: "closed", userName: user, selling: parseInt(request), updated: Today.GetDate()})
                 .write()
             }
-        }else{
+        } else{
             if(userExists){
                 db.get('neighbors')
                 .find({ id: userID })
@@ -28,10 +30,10 @@ const Today = (weekend, request, Today, userExists, userID, user, db, bot, chann
             message: 
             'Thank you for the udpate ' + user + '!!' 
         });
-    }else{
-        var day = Today.GetDate();
-        var hour = Today.GetHours();
-        if(weekend){
+    } else {
+        var day = DateHelper.getDate();
+        var hour = DateHelper.getHours();
+        if(isSunday) {
             var topPrice =  10000;
             var topUserID = 0;
 
@@ -40,24 +42,28 @@ const Today = (weekend, request, Today, userExists, userID, user, db, bot, chann
                     topUserID = n.id; topPrice = n.selling
                 }
             });
+
             var topUser = db.get('neighbors').find({id: topUserID}).value();
-            if(topUser === undefined){
+            if(topUser === undefined) {
                 bot.sendMessage({
                     to: channelID,
                     message: 
                     'I\'m sorry hun, no turnip prices have been listed today. \n' +
                     'Please list yours! Here is an example: $price 46'
                 });
-            }else{
-                var portState = topUser.port === "closed" ? ":no_entry:" : ":airplane:";
+            } else {
+                
+
+                var portState = topUser.port === "closed" ? ":no_entry:" : ":airplane";
                 bot.sendMessage({
                     to: channelID,
                     message: 
-                    'I\'m selling turnips for ' + topUser.selling + ' :bell: at ' + topUser.island + ' Island! :palm_tree: \n' +
+                    'I\'m selling turnips for ' + topUser.selling + ' :bell: at ' + topUser.island + ' Island! :palm_tree:" \n' +
                     topUser.userName + '\'s port is '+ topUser.port  + ' ' + portState + '! \nDodo code: ' + topUser.dodoCode 
                 });
             }
-        }else{
+
+        } else {
             var topPrice = 0;
             var topUserID = 0;
             //need to monitor each users timezone to determine if we should count them for highest/lowest price
