@@ -46,7 +46,7 @@ const Today = (weekend, request, Today, userExists, userID, user, db, bot, chann
                     to: channelID,
                     message: 
                     'I\'m sorry hun, no turnip prices have been listed today. \n' +
-                    'Please list yours! Here is an example: $price 45'
+                    'Please list yours! Here is an example: $price 46'
                 });
             }else{
                 var portState = topUser.port === "closed" ? ":no_entry:" : ":airplane";
