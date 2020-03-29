@@ -46,6 +46,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         var userExists = (db.get('neighbors').find({ id: userID }).value() !== undefined);
         var today = new Date();
         var weekend = false;
+        console.log("get date then get hour: " + today.getDate() + ' : ' + today.getHours());
         if(today.getDay() == sunday) weekend = true;
         // if(today.getDay() == saturday || today.getDay() == sunday) weekend = true;
     
