@@ -9,7 +9,7 @@ const Name = (weekend, request, Today, userExists, userID, user, db, bot, channe
             bot.sendMessage({
                 to: channelID,
                 message: 
-                'Your island :palm_tree: has be renamed to ' + request + '! \n This is much better than the previous name!'
+                'Your island :palm_tree: has been renamed to ' + request + '! \n This is much better than the previous name!'
             });
         }else{
             db.get('neighbors')
