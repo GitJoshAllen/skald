@@ -52,6 +52,7 @@ const Today = (weekend, request, Today, userExists, userID, user, db, bot, chann
             var topPrice = 0;
             var topUserID = 0;
             db.get('neighbors').value().map((n) => {
+                console.log("n: " + n);
                 if(n.purchase > topPrice && n.updated === day){
                     if(!(hour >= 12 && n.hour < 12)){//if you haven't updated since Noon
                         topUserID = n.id; topPrice = n.purchase
