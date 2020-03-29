@@ -1,12 +1,15 @@
-const  GetDate = () => {
+const  getDate = () => {
     var today = new Date();
     return (today.getMonth() + 1) + "/" + today.getDate() + "/" + today.getFullYear();
 }
 
-const GetHours = () => {
+const getHours = () => {
     var today = new Date();
     return today.getHours();
 }
-exports.GetDate = GetDate;
-exports.GetHours = GetHours;
+module.exports = {
+    getDate,
+    getHours
+
+}
   
