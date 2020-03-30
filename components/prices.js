@@ -60,11 +60,11 @@ const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) 
                 });
             } else {                
 
-                var portState = topUser.port === "closed" ? ":no_entry:" : ":airplane";
+                var portState = topUser.port === "closed" ? ":no_entry:" : ":airplane:";
                 bot.sendMessage({
                     to: channelID,
                     message: 
-                    'I\'m selling turnips for ' + topUser.selling + ' :bell: at ' + topUser.island + ' Island! :palm_tree:" \n' +
+                    'I\'m selling turnips for ' + topUser.selling + ' :bell: at ' + topUser.island + ' Island! :palm_tree: \n' +
                     topUser.userName + '\'s port is '+ topUser.port  + ' ' + portState + '! \nDodo code: ' + topUser.dodoCode 
                 });
             }

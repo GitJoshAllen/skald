@@ -43,7 +43,7 @@ bot.on('ready', function (evt) {
 bot.on('message', function (user, userID, channelID, message, evt) {
     // Our bot needs to know if it will execute a command
     // It will listen for messages that will start with `!`
-    if (message.substring(0, 1) == '$') {
+    if (message.substring(0, 1) == '#') {
         let args = message.substring(1).split(' ');
         let cmd = args[0] ? args[0].toLowerCase() : 'nope';
         let request = args[1] ? args[1] : '';
