@@ -1,28 +1,29 @@
 
 const moment = require('moment-timezone');
+const DatabaseService = require('./DatabaseService');
 
-let setTimeZone = (bot, channelID, request) => {
+const handleTimeZone = (user, userID, request, bot, channelID) => {
    
-    if(request){
-
+    if(request) {
         if(moment.tz.zone(request)){
-            let timeFormat = moment().tz(request).format();
-            
-                    bot.sendMessage({
-                        to: channelID,
-                        message: timeFormat
-                    });
+            let timeZone = moment().tz(request).format();
+            DatabaseService.setTimeZone(userID, timeZone);
+            bot.sendMessage({
+                to: channelID,
+                message: user + ', your time zone has been updated'
+            });
 
         } else {
             bot.sendMessage({
                 to: channelID,
-                message: 'you may have phat fungered your timezone, do it again'
+                message: 'Timezone not valid. Please try again.'
             });
         }
 
     } else {
         //let timzoneList = moment.tz.names().join();
-        console.log(moment.tz.names())
+        let neighbor = DatabaseService.getTimeZone(userId);
+
         bot.sendMessage({
             to: channelID,
             message: 'wow'
@@ -35,6 +36,6 @@ let getUserTime = (userTimeZone) => {
 }
 
 module.exports = {
-    setTimeZone,
+    handleTimeZone,
     getUserTime
 };
