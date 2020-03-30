@@ -2,7 +2,7 @@ const DateHelper = require('../utilities/DateHelper');
 const DatabaseService = require('../services/DatabaseService');
 
 const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) => {
-    if(!isNaN(parseInt(request))){
+    if(!isNaN(parseInt(request))) {
         if(isSunday) {
             if(userExists) {
                 db.get('neighbors')

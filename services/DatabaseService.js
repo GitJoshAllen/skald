@@ -6,8 +6,6 @@ const db = low(adapter)
 const Neighbor = require('../models/Neighbor');
 const DB_NAME = 'neighbors';
 
-db.defaults({ neighbors: [] })
-  .write();
 
 const createNewNeighbor = (user, request, userID) => {
   let newNeighbor = Neighbor.mapDataToNeighborModel(user, request, userID);

@@ -51,6 +51,15 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         let weekend = false;
         
         let userExists = (db.get('neighbors').find({ id: userID }).value() !== undefined);
+        if(!userExists){
+            bot.sendMessage({
+                to: channelID,
+                message: 'creating user'
+            });
+            DatabaseService.createNewNeighbor(user, request, userID);
+            
+        }
+
         
         if(today.getDay() == sunday) weekend = true;
         // if(today.getDay() == saturday || today.getDay() == sunday) weekend = true;    
@@ -67,7 +76,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'stalnks':
             case 'tendies':
             case 'stocks':
-                Prices.Today(weekend, request, userExists, userID, user, db, bot, channelID);
+                Prices.Today(weekend, userExists, request, userID, user, db, bot, channelID);
             break;
             case 'mybodyisready':
                 request = "opened";
