@@ -2,8 +2,8 @@ const DateHelper = require('../utilities/DateHelper')
 
 const mapDataToNeighborModel = (user, request, userID = undefined) => {
     // New
-    let date = DateHelper.GetDate();
-    let hours = DateHelper.GetHours();
+    let date = DateHelper.getDate();
+    let hours = DateHelper.getHours();
 
     if(userID){
         return { 
@@ -26,4 +26,4 @@ const mapDataToNeighborModel = (user, request, userID = undefined) => {
     }
 }
 
-module.exports = mapDataToNeighborModel;
+exports.mapDataToNeighborModel = mapDataToNeighborModel;
