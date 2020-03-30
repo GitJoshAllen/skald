@@ -3,6 +3,11 @@ const DatabaseService = require('../services/DatabaseService');
 
 const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) => {
     if(!isNaN(parseInt(request))) {
+        bot.sendMessage({
+            to: channelID,
+            message: 
+            'inside NaN if'
+        });
         if(isSunday) {
             if(userExists) {
                 db.get('neighbors')
@@ -25,7 +30,7 @@ const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) 
             }
         } else {
             if(userExists) {                
-                DatabaseService.updateNeighbor(user, request);
+                DatabaseService.updateNeighbor(user, request, userID);
             } else {               
                 DatabaseService.createNewNeighbor(user, request, userID);
             }
@@ -34,10 +39,11 @@ const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) 
         bot.sendMessage({
             to: channelID,
             message: 
-            'Thank you for the udpate ' + user + '!!' 
+            'Thank you for the update ' + user + '!!' 
         });
 
     } else {
+
         var day = DateHelper.getDate();
         var hour = DateHelper.getHours();
         if(isSunday) {
@@ -83,8 +89,12 @@ const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) 
             // }
             db.get('neighbors').value().map((n) => {
                 if(n.purchase > topPrice && n.updated === day){
-                    if(!(hour >= 12 && n.hour < 12)){//if you haven't updated since Noon
-                        topUserID = n.id; topPrice = n.purchase
+                    if(n.hour){
+                        if(!(hour >= 12 && n.hour < 12)){
+                            //if you haven't updated since Noon
+                            topUserID = n.id; 
+                            topPrice = n.purchase;
+                        }
                     }
                 }
             });

@@ -15,13 +15,13 @@ const low = require('lowdb')
 const saturday = 6;
 const sunday = 0;
 
-const FileSync = require('lowdb/adapters/FileSync')
+// const FileSync = require('lowdb/adapters/FileSync')
 
-const adapter = new FileSync('db.json')
-const db = low(adapter)
-db.defaults({ neighbors: [] })
-  .write()
-
+// const adapter = new FileSync('db.json')
+// const db = low(adapter)
+// db.defaults({ neighbors: [] })
+//   .write()
+const db = DatabaseService.getDb();
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
@@ -45,12 +45,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     // It will listen for messages that will start with `!`
     if (message.substring(0, 1) == '#') {
         let args = message.substring(1).split(' ');
-        let cmd = args[0] ? args[0].toLowerCase() : 'nope';
+        let cmd = args[0] ? args[0].toLowerCase() : '';
         let request = args[1] ? args[1] : '';
         let today = new Date();
         let weekend = false;
         
-        let userExists = (db.get('neighbors').find({ id: userID }).value() !== undefined);
+        let userExists = DatabaseService.checkUserExists(userID);
         if(!userExists){
             bot.sendMessage({
                 to: channelID,
@@ -59,7 +59,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             DatabaseService.createNewNeighbor(user, request, userID);
             
         }
-
+        bot.sendMessage({
+            to: channelID,
+            message: "User: " + user + "\n"
+            + "userID: " + userID +"\n"
+            + "channelID: " + channelID +"\n"            
+            + "message: " + message +"\n"
+            + "arge: " + args +"\n"
+        });
         
         if(today.getDay() == sunday) weekend = true;
         // if(today.getDay() == saturday || today.getDay() == sunday) weekend = true;    
@@ -76,7 +83,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'stalnks':
             case 'tendies':
             case 'stocks':
-                Prices.Today(weekend, userExists, request, userID, user, db, bot, channelID);
+                Prices.Today(weekend, request, userExists, userID, user, db, bot, channelID);
             break;
             case 'mybodyisready':
                 request = "opened";
