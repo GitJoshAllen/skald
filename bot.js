@@ -2,8 +2,8 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 
-var Help = require('./components/Help');
 var Prices = require('./components/Prices');
+var Help = require('./components/Help');
 var Port = require('./components/Port');
 var Island = require('./components/Island');
 var Dodo = require('./components/Dodo');
