@@ -1,16 +1,30 @@
 {
   "neighbors": [
     {
-      "id": "121805179069661184",
-      "port": "closed",
+      "id": "177806771786612737",
+      "port": "opened",
       "turnip": {
-        "price": null,
-        "dateSubmitted": "Mon, 30 Mar 2020 08:14:55 GMT"
+        "price": 23,
+        "dateSubmitted": "Mon, 30 Mar 2020 22:29:28 GMT"
       },
-      "timeZone": "America/Los_Angeles",
+      "timeZone": "America/Chicago",
+      "userName": "[Josh][Allen]",
+      "updated": "3/30/2020",
+      "hour": 17,
+      "island": "23",
+      "dodoCode": "wqer"
+    },
+    {
+      "id": "121805179069661184",
+      "port": "opened",
+      "turnip": {
+        "price": 39,
+        "dateSubmitted": "Mon, 30 Mar 2020 22:29:15 GMT"
+      },
+      "timeZone": "America/Chicago",
       "userName": "Stan Thuman",
       "updated": "3/30/2020",
-      "hour": 3
+      "hour": 17
     }
   ]
 }

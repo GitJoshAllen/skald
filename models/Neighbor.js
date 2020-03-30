@@ -12,8 +12,8 @@ const mapDataToNeighborModel = (user, request, userID = undefined) => {
             id: userID, 
             port: "closed", 
             turnip: {
-                price: parseInt(request),
-                dateSubmitted: new Date().toUTCString()
+                price: request ? parseInt(request) : undefined,
+                dateSubmitted: undefined
             },
             timeZone: DEFAULT_TIMEZONE,
             userName: user, 

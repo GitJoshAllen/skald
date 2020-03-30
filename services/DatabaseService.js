@@ -32,6 +32,9 @@ const getNeighbor = (userID) => {
   .value();
 }
 
+const getNeighbors = () => db.get(DB_NAME).value();
+
+
 const setTimeZone = (userID, timeZone) => {
   db.get(DB_NAME)
   .find({ id: userID})
@@ -61,6 +64,17 @@ const updatePurchase = (userID, request) => {
   }).write();
 }
 
+const removeTurnipPrice = (userID, price, dateSubmitted) => {
+  db.get(DB_NAME)
+  .find({id: userID})
+  .assign({   
+    turnip: {
+        price,
+        dateSubmitted
+  }}).write();
+
+}
+
 const getDb = () => db;
 
 
@@ -72,5 +86,7 @@ module.exports =  {
     getTimeZone,
     checkUserExists,
     getDb,
-    updatePurchase
+    updatePurchase,
+    getNeighbors,
+    removeTurnipPrice
 };
