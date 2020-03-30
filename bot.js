@@ -8,7 +8,8 @@ var Port = require('./components/Port');
 var Island = require('./components/Island');
 var Dodo = require('./components/Dodo');
 
-let TimeService = require('./services/TimeService');
+const DatabaseService = require('./services/DatabaseService');
+const TimeService = require('./services/TimeService');
 
 const low = require('lowdb')
 const saturday = 6;
@@ -43,16 +44,17 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     // Our bot needs to know if it will execute a command
     // It will listen for messages that will start with `!`
     if (message.substring(0, 1) == '$') {
-        var args = message.substring(1).split(' ');
-        var cmd = args[0] ? args[0].toLowerCase() : 'nope';
-        var request = args[1] ? args[1] : '';
-        var userExists = (db.get('neighbors').find({ id: userID }).value() !== undefined);
-        var today = new Date();
-        var weekend = false;
+        let args = message.substring(1).split(' ');
+        let cmd = args[0] ? args[0].toLowerCase() : 'nope';
+        let request = args[1] ? args[1] : '';
+        let userExists = (db.get('neighbors').find({ id: userID }).value() !== undefined);
+        let today = new Date();
+        let weekend = false;
+
         if(today.getDay() == sunday) weekend = true;
-        // if(today.getDay() == saturday || today.getDay() == sunday) weekend = true;
-    
+        // if(today.getDay() == saturday || today.getDay() == sunday) weekend = true;    
         args = args.splice(1);
+        
         switch(cmd){
             case 'help':
                 Help.All(bot, channelID);
@@ -80,10 +82,20 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 Dodo.Code(weekend, request, userExists, userID, user, db, bot, channelID);
             break;
             case 'timezone':
-                TimeService.setTimeZone(bot, channelID, request);
+                TimeService.handleTimeZone(user, userID, request, bot, channelID);
                 break;                
             case 'chonk':
                 TimeService.getUserTime("ldskfjls");
+                break;
+
+            case 'loginfo':
+                bot.sendMessage({
+                    to: channelID,
+                    message: "User: " + user + "\n"
+                    + "userID: " + userID +"\n"
+                    + "channelID: " + channelID +"\n"
+                    + "message: " + message +"\n"
+                });
                 break;
             case 'nope':
             default:

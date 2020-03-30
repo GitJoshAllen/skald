@@ -1,35 +1,57 @@
 const DateHelper = require('../utilities/DateHelper');
+const DatabaseService = require('../services/DatabaseService');
 
 const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) => {
     if(!isNaN(parseInt(request))){
-        if(isSunday){
-            if(userExists){
+        if(isSunday) {
+            if(userExists) {
                 db.get('neighbors')
                 .find({ id: userID })
-                .assign({ selling: parseInt(request), userName: user, updated: Today.GetDate()})
-                .write()
-            }else{
+                .assign({ 
+                    selling: parseInt(request), 
+                    userName: user, 
+                    updated: Today.GetDate()
+                }).write()
+            } else {
                 db.get('neighbors')
-                .push({ id: userID, port: "closed", userName: user, selling: parseInt(request), updated: Today.GetDate()})
+                .push({ 
+                    id: userID, 
+                    port: "closed", 
+                    userName: user, 
+                    selling: parseInt(request), 
+                    updated: Today.GetDate()
+                })
                 .write()
             }
-        } else{
-            if(userExists){
-                db.get('neighbors')
-                .find({ id: userID })
-                .assign({ userName: user, purchase: parseInt(request), updated: Today.GetDate(), hour: Today.GetHours()})
-                .write()
-            }else{
-                db.get('neighbors')
-                .push({ id: userID, port: "closed", purchase: parseInt(request), userName: user, updated: Today.GetDate(), hour: Today.GetHours()})
-                .write()
+        } else {
+            if(userExists) {
+                let updatedNeighborData = { 
+                    userName: user, 
+                    purchase: parseInt(request), 
+                    updated: Today.GetDate(), 
+                    hour: Today.GetHours() 
+                };
+                DatabaseService.updateNeighbor(userID, updatedNeighborData);
+            } else {
+                let newNeighbor = { 
+                    id: userID, 
+                    port: "closed", 
+                    purchase: parseInt(request), 
+                    userName: user, 
+                    updated: Today.GetDate(), 
+                    hour: Today.GetHours()
+                };
+                DatabaseService.createNewNeighbor(newNeighbor);
+
             }
         }
+
         bot.sendMessage({
             to: channelID,
             message: 
             'Thank you for the udpate ' + user + '!!' 
         });
+
     } else {
         var day = DateHelper.getDate();
         var hour = DateHelper.getHours();
