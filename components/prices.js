@@ -24,25 +24,10 @@ const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) 
                 .write()
             }
         } else {
-            if(userExists) {
-                let updatedNeighborData = { 
-                    userName: user, 
-                    purchase: parseInt(request), 
-                    updated: Today.GetDate(), 
-                    hour: Today.GetHours() 
-                };
-                DatabaseService.updateNeighbor(userID, updatedNeighborData);
-            } else {
-                let newNeighbor = { 
-                    id: userID, 
-                    port: "closed", 
-                    purchase: parseInt(request), 
-                    userName: user, 
-                    updated: Today.GetDate(), 
-                    hour: Today.GetHours()
-                };
-                DatabaseService.createNewNeighbor(newNeighbor);
-
+            if(userExists) {                
+                DatabaseService.updateNeighbor(user, request);
+            } else {               
+                DatabaseService.createNewNeighbor(user, request, userID);
             }
         }
 
@@ -73,8 +58,7 @@ const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) 
                     'I\'m sorry hun, no turnip prices have been listed today. \n' +
                     'Please list yours! Here is an example: $price 46'
                 });
-            } else {
-                
+            } else {                
 
                 var portState = topUser.port === "closed" ? ":no_entry:" : ":airplane";
                 bot.sendMessage({
