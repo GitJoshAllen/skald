@@ -1,29 +1,12 @@
 {
   "neighbors": [
     {
-      "id": "177806771786612737",
-      "port": "opened",
-      "userName": "[Josh][Allen]",
-      "selling": 25,
-      "updated": "3/29/2020",
-      "island": "Welp",
-      "dodoCode": "dfgr98W"
-    },
-    {
       "id": "121805179069661184",
       "port": "closed",
-      "purchase": null,
+      "purchase": 34,
       "userName": "Stan Thuman",
       "updated": "3/30/2020",
-      "hour": 0
-    },
-    {
-      "id": "121805179069661184",
-      "port": "closed",
-      "purchase": null,
-      "userName": "Stan Thuman",
-      "updated": "3/30/2020",
-      "hour": 0
+      "hour": 1
     }
   ]
 }
