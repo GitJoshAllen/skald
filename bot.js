@@ -47,10 +47,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         let args = message.substring(1).split(' ');
         let cmd = args[0] ? args[0].toLowerCase() : 'nope';
         let request = args[1] ? args[1] : '';
-        let userExists = (db.get('neighbors').find({ id: userID }).value() !== undefined);
         let today = new Date();
         let weekend = false;
-
+        
+        let userExists = (db.get('neighbors').find({ id: userID }).value() !== undefined);
+        
         if(today.getDay() == sunday) weekend = true;
         // if(today.getDay() == saturday || today.getDay() == sunday) weekend = true;    
         args = args.splice(1);
