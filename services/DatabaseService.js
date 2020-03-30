@@ -5,7 +5,8 @@ const db = low(adapter)
 
 const Neighbor = require('../models/Neighbor');
 const DB_NAME = 'neighbors';
-
+db.defaults({ neighbors: [] })
+  .write()
 
 const createNewNeighbor = (user, request, userID) => {
   let newNeighbor = Neighbor.mapDataToNeighborModel(user, request, userID);
@@ -15,7 +16,7 @@ const createNewNeighbor = (user, request, userID) => {
   .write();
 }
 
-const updateNeighbor = (user, request) => {
+const updateNeighbor = (user, request, userID) => {
   let updatedNeighbor = Neighbor.mapDataToNeighborModel(user, request);
 
   db.get(DB_NAME)
@@ -42,11 +43,19 @@ const getTimeZone = (userId) => {
   .value();
 }
 
+const checkUserExists = (userID) => (db
+    .get('neighbors')
+    .find({ id: userID }).value() !== undefined);
+
+const getDb = () => db;
+
 
 module.exports =  {
     createNewNeighbor,
     updateNeighbor,
     getNeighbor,
     setTimezone,
-    getTimeZone
+    getTimeZone,
+    checkUserExists,
+    getDb
 };
