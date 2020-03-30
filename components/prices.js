@@ -3,11 +3,6 @@ const DatabaseService = require('../services/DatabaseService');
 
 const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) => {
     if(!isNaN(parseInt(request))) {
-        bot.sendMessage({
-            to: channelID,
-            message: 
-            'inside NaN if'
-        });
         if(isSunday) {
             if(userExists) {
                 db.get('neighbors')
@@ -29,11 +24,7 @@ const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) 
                 .write()
             }
         } else {
-            if(userExists) {                
-                DatabaseService.updateNeighbor(user, request, userID);
-            } else {               
-                DatabaseService.createNewNeighbor(user, request, userID);
-            }
+            DatabaseService.updatePurchase(userID, request);
         }
 
         bot.sendMessage({
@@ -52,7 +43,8 @@ const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) 
 
             db.get('neighbors').value().map((n) => {
                 if(n.selling < topPrice && n.updated === day){
-                    topUserID = n.id; topPrice = n.selling
+                    topUserID = n.id; 
+                    topPrice = n.selling;
                 }
             });
 
@@ -64,7 +56,7 @@ const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) 
                     'I\'m sorry hun, no turnip prices have been listed today. \n' +
                     'Please list yours! Here is an example: $price 46'
                 });
-            } else {                
+            } else {               
 
                 var portState = topUser.port === "closed" ? ":no_entry:" : ":airplane:";
                 bot.sendMessage({
@@ -88,32 +80,41 @@ const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) 
             //     return;
             // }
             db.get('neighbors').value().map((n) => {
-                if(n.purchase > topPrice && n.updated === day){
+                if(n.turnip.price > topPrice && n.updated === day){
                     if(n.hour){
                         if(!(hour >= 12 && n.hour < 12)){
                             //if you haven't updated since Noon
                             topUserID = n.id; 
-                            topPrice = n.purchase;
+                            topPrice = n.turnip.price;
                         }
                     }
                 }
             });
+
             var topUser = db.get('neighbors').find({id: topUserID}).value();
-            if(topUser === undefined){
+            if(topUser === undefined) {
                 bot.sendMessage({
                     to: channelID,
                     message: 
                     'I\'m sorry hun, no stock prices have been listed today. \n' +
                     'Please list yours like: $price 45'
                 });
-            }else{
-                var portState = topUser.port === "closed" ? ":no_entry:" : ":airplane:";
-                bot.sendMessage({
-                    to: channelID,
-                    message: 
-                    'I\'m buying turnips for ' + topUser.purchase + ' :bell: at ' + topUser.island + ' Island! :palm_tree: \n' +
-                    topUser.userName + '\'s port is '+ topUser.port + ' ' + portState + '! \nDodo code: ' + topUser.dodoCode 
-                });
+            } else {
+                let isDateValid = TimeService.validateDate(topUser);
+                if(isDateValid){
+                    var portState = topUser.port === "closed" ? ":no_entry:" : ":airplane:"; 
+                    bot.sendMessage({
+                        to: channelID,
+                        message: 
+                        'I\'m buying turnips for ' + topUser.turnip.price + ' :bell: at ' + topUser.island + ' Island! :palm_tree: \n' +
+                        topUser.userName + '\'s port is '+ topUser.port + ' ' + portState + '! \nDodo code: ' + (topUser.dodoCode ? topUser.dodoCode : 'no code')
+                    });
+                } else {
+                    // remove price from top user
+                    // recalculate top user
+
+                }
+
             }
         }
     }

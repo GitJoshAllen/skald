@@ -5,12 +5,12 @@ const DatabaseService = require('./DatabaseService');
 const handleTimeZone = (user, userID, request, bot, channelID) => {
    
     if(request) {
-        if(moment.tz.zone(request)){
+        if(moment.tz.zone(request)) {
             let timeZone = moment().tz(request).format();
-            DatabaseService.setTimeZone(userID, timeZone);
+            DatabaseService.setTimeZone(userID, request);
             bot.sendMessage({
                 to: channelID,
-                message: user + ', your time zone has been updated'
+                message: user + ', your time zone has been updated \n TimeZone: ' + timeZone
             });
 
         } else {
@@ -22,16 +22,20 @@ const handleTimeZone = (user, userID, request, bot, channelID) => {
 
     } else {
         //let timzoneList = moment.tz.names().join();
-        let neighbor = DatabaseService.getTimeZone(userId);
+        let neighbor = DatabaseService.getNeighbor(userID);
 
         bot.sendMessage({
             to: channelID,
-            message: 'wow'
+            message: 'Your time zone is set to: ' + neighbor.timeZone
         });
     }
 }
 
-let getUserTime = (userTimeZone) => {
+const validateTime = (topNeighbor) => {
+
+}
+
+const getUserTime = (userTimeZone) => {
     console.log(userTimeZone);
 }
 

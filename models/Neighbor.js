@@ -1,5 +1,7 @@
 const DateHelper = require('../utilities/DateHelper')
 
+const DEFAULT_TIMEZONE = 'America/Chicago'
+
 const mapDataToNeighborModel = (user, request, userID = undefined) => {
     // New
     let date = DateHelper.getDate();
@@ -9,7 +11,11 @@ const mapDataToNeighborModel = (user, request, userID = undefined) => {
         return { 
             id: userID, 
             port: "closed", 
-            purchase: parseInt(request), 
+            turnip: {
+                price: parseInt(request),
+                dateSubmitted: new Date().toUTCString()
+            },
+            timeZone: DEFAULT_TIMEZONE,
             userName: user, 
             updated: date, 
             hour: hours
@@ -19,7 +25,10 @@ const mapDataToNeighborModel = (user, request, userID = undefined) => {
         // Update
         return { 
             userName: user, 
-            purchase: parseInt(request), 
+            turnip: {
+                price: parseInt(request),
+                dateSubmitted: new Date().toUTCString()
+            },
             updated: date,
             hour: hours
         }

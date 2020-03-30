@@ -52,21 +52,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         
         let userExists = DatabaseService.checkUserExists(userID);
         if(!userExists){
-            bot.sendMessage({
-                to: channelID,
-                message: 'creating user'
-            });
             DatabaseService.createNewNeighbor(user, request, userID);
-            
         }
-        bot.sendMessage({
-            to: channelID,
-            message: "User: " + user + "\n"
-            + "userID: " + userID +"\n"
-            + "channelID: " + channelID +"\n"            
-            + "message: " + message +"\n"
-            + "arge: " + args +"\n"
-        });
         
         if(today.getDay() == sunday) weekend = true;
         // if(today.getDay() == saturday || today.getDay() == sunday) weekend = true;    

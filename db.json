@@ -3,10 +3,14 @@
     {
       "id": "121805179069661184",
       "port": "closed",
-      "purchase": 34,
+      "turnip": {
+        "price": null,
+        "dateSubmitted": "Mon, 30 Mar 2020 08:14:55 GMT"
+      },
+      "timeZone": "America/Los_Angeles",
       "userName": "Stan Thuman",
       "updated": "3/30/2020",
-      "hour": 1
+      "hour": 3
     }
   ]
 }
