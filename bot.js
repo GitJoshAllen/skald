@@ -9,7 +9,7 @@ var Island = require('./components/Island');
 var Dodo = require('./components/Dodo');
 
 const DatabaseService = require('./services/DatabaseService');
-const TimeService = require('./services/TimeService');
+const TurnipPriceService = require('./services/TurnipPriceService');
 
 const low = require('lowdb')
 const saturday = 6;
@@ -86,10 +86,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 Dodo.Code(weekend, request, userExists, userID, user, db, bot, channelID);
             break;
             case 'timezone':
-                TimeService.handleTimeZone(user, userID, request, bot, channelID);
+                TurnipPriceService.handleTimeZone(user, userID, request, bot, channelID);
                 break;                
             case 'chonk':
-                TimeService.getUserTime("ldskfjls");
+                TurnipPriceService.getUserTime("ldskfjls");
                 break;
 
             case 'loginfo':
