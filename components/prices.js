@@ -61,7 +61,7 @@ const Today = (isSunday, request, userExists, userID, user, db, bot, channelID) 
 
         } else {
 
-            const topUser = TurnipPriceService.calculateTopNeighbor('8:00', '23:00', false);
+            const topUser = TurnipPriceService.calculateTopNeighbor('8:00', '21:00', false);
              
             // At this point, topUser turnip data is 100% valid 
             if(topUser === undefined) {

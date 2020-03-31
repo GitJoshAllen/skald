@@ -24,7 +24,7 @@ const Code = (weekend, request, userExists, userID, user, db, bot, channelID) =>
     } else {
         bot.sendMessage({
             to: channelID,
-            message: 'No Dodo code was entered. Please try again.'
+            message: 'I\'m sorry, I did no see a Dodo code. I may have gotten distracted :pig2:'
         });
     }
 }

@@ -16,7 +16,7 @@ const Status = (weekend, request, userExists, userID, user, db, bot, channelID) 
     
             bot.sendMessage({
                 to: channelID,
-                message: 'Sorry ' + user + ", that port option is not valid"
+                message: 'Sorry ' + user + ", you can't do that with your port!"
             });
             return;
         }

@@ -25,7 +25,7 @@ const Name = (weekend, request, userExists, userID, user, db, bot, channelID) =>
     } else {
         bot.sendMessage({
             to: channelID,
-            message: 'No island name was entered. Please try again.'
+            message: 'I didn\'t see your island name. I was cleaning my nose, I\'m sorry :pig:'
         });
     }
 }
